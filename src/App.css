@@ -54,6 +54,10 @@ body {
   background: linear-gradient(154.93deg,#3d7cfb 0%,#35dbf7 50%,#4cc992 100%);
 }
 
-button, .modal-body, a {
+button, a {
   font-family: 'kanit' !important;
+}
+
+.modal-dialog > * {
+  font-family: 'kanit';
 }

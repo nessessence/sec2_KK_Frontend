@@ -30,6 +30,9 @@ class NavBar extends React.Component {
         return (
             <Modal show={this.state.isLoginModalOpen} onHide={this.closeLoginModal}>
                 <Form>
+                    <Modal.Header closeButton>
+                        <Modal.Title>เข้าสู่ระบบ</Modal.Title>
+                    </Modal.Header>
                     <Modal.Body>
                         <Form.Group>
                             <Form.Control type="text" placeholder="Username" />
@@ -41,7 +44,44 @@ class NavBar extends React.Component {
                     <Modal.Footer>
                     <a href="#">ลืมรหัสผ่าน?</a>
                     <Button className="ml-auto" variant="primary" onClick={this.closeLoginModal}>
-                        เข้าสู่ระบบ
+                        ยืนยัน
+                    </Button>
+                    </Modal.Footer>
+                </Form>
+            </Modal>
+        );
+    }
+
+    openSignupModal = () => {
+        this.setState({
+            isSignupModalOpen: true
+        })
+    }
+
+    closeSignupModal = () => {
+        this.setState({
+            isSignupModalOpen: false
+        })
+    }
+
+    Signup = () => {
+        return (
+            <Modal show={this.state.isSignupModalOpen} onHide={this.closeSignupModal}>
+                <Form>
+                    <Modal.Header closeButton>
+                        <Modal.Title>สมัครสมาชิก</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form.Group>
+                            <Form.Control type="text" placeholder="Username" />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Control type="password" placeholder="Password" />
+                        </Form.Group>
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <Button variant="primary" onClick={this.closeSignupModal}>
+                        ยืนยัน
                     </Button>
                     </Modal.Footer>
                 </Form>
@@ -52,13 +92,14 @@ class NavBar extends React.Component {
     render(){
         return (
             <Navbar bg="light" expand="lg">
-                <this.Login/>
+                <this.Login />
+                <this.Signup />
                 <Navbar.Brand href="/">CourtCatch</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav" className="d-flex flex-row-reverse">
                     <div className="nav-button-group">
                         <span className="nav-button btn btn-outline-success" onClick={()=>this.openLoginModal()}>เข้าสู่ระบบ</span>
-                        <span className="nav-button btn btn-outline-success">สมัครสมาชิก</span>
+                        <span className="nav-button btn btn-outline-success" onClick={()=>this.openSignupModal()}>สมัครสมาชิก</span>
                     </div>
                     <NavLink className="nav-button" exact to="/about">เกี่ยวกับเรา</NavLink>
                 </Navbar.Collapse>
