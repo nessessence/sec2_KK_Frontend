@@ -1,5 +1,13 @@
+@font-face {
+  font-family: 'kanit';
+  src: url('./font/Kanit-Regular.ttf'); 
+
+}
+
 .App {
   text-align: center;
+  font-family: 'kanit';
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -35,4 +43,13 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.app-content {
+  padding-top: 30px;
+}
+
+body {
+  background-attachment: fixed;
+  background: linear-gradient(154.93deg,#3d7cfb 0%,#35dbf7 50%,#4cc992 100%);
 }
