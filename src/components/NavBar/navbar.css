@@ -14,3 +14,7 @@
 .nav-button-group {
     margin-left: 30px;
 }
+
+.error-form-field {
+    color: red;
+}
