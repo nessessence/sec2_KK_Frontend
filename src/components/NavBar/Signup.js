@@ -1,6 +1,7 @@
 import React from 'react';
 import {Form,Button,Modal} from 'react-bootstrap';
-import axios from 'axios';
+import {connect} from 'react-redux';
+import {auth} from '../../actions';
 
 class Signup extends React.Component {
     constructor(props){
@@ -63,31 +64,31 @@ class Signup extends React.Component {
     handleSubmit = async (e) => {
         e.preventDefault();
         this.validateForm();
-        
-        if ( this.isFormValid() ){
-            const arg = {
-                first_name: this.state.firstname,
-                last_name: this.state.lastname,
-                username: this.state.username,
-                password: this.state.password,
-                email: this.state.email,
-                phone_number: this.state.phone
-            }
-            try {
-                let res = await axios.post("http://localhost:8000/api/user/", arg,
-                        { 
-                            headers: { 
-                                'Content-Type': 'application/json',
-                            } 
-                        });
-                console.log(res);
-                this.resetState();
-            }
-            catch(err){
-                console.log(err);
-                alert(err);
-            }
-        }
+        console.log('sign up');
+        // if ( this.isFormValid() ){
+        //     const arg = {
+        //         first_name: this.state.firstname,
+        //         last_name: this.state.lastname,
+        //         username: this.state.username,
+        //         password: this.state.password,
+        //         email: this.state.email,
+        //         phone_number: this.state.phone
+        //     }
+        //     try {
+        //         let res = await axios.post("http://localhost:8000/api/user/", arg,
+        //                 { 
+        //                     headers: { 
+        //                         'Content-Type': 'application/json',
+        //                     } 
+        //                 });
+        //         console.log(res);
+        //         this.resetState();
+        //     }
+        //     catch(err){
+        //         console.log(err);
+        //         alert(err);
+        //     }
+        // }
     }
 
     isFormValid = () => {
@@ -214,4 +215,16 @@ class Signup extends React.Component {
     }
 }
 
-export default Signup;
+const mapStateToProps = state => {
+    return {
+      isAuthenticated: state.auth.isAuthenticated
+    };
+  }
+  
+  const mapDispatchToProps = dispatch => {
+    return {
+      register: (username, password) => dispatch(auth.register(username, password)),
+    };
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps, null, {forwardRef: true})(Signup);

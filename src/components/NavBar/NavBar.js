@@ -2,7 +2,6 @@ import React from 'react';
 import {Navbar, Nav} from 'react-bootstrap';
 import {NavLink} from 'react-router-dom'
 import './navbar.css';
-import Validate from "react-validate-form"
 import Login from './Login';
 import Signup from './Signup';
 

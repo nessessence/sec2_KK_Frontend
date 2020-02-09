@@ -1,6 +1,7 @@
 import React from 'react';
 import {Form,Button,Modal} from 'react-bootstrap';
-import axios from 'axios';
+import {connect} from 'react-redux';
+import {auth} from '../../actions';
 
 class Login extends React.Component {
     constructor(props){
@@ -32,15 +33,17 @@ class Login extends React.Component {
         e.preventDefault();
         this.validateForm();
         
+        console.log('handle submit');
         if ( this.isFormValid() ){
-            // log in
+            console.log('form valid');
+            this.props.login(this.state.username, this.state.password);
         }
     }
 
     isFormValid = () => {
         let valid = true;
         for(let field in this.state.formErrors ){
-            valid = field === "" ? true : false;
+            valid = this.state.formErrors[field] === "" ? true : false;
         }
 
         return valid;
@@ -95,4 +98,18 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+const mapStateToProps = state => {
+    return {
+        isAuthenticated: state.auth.isAuthenticated
+    };
+}
+  
+const mapDispatchToProps = dispatch => {
+    return {
+        login: (username, password) => {
+          return dispatch(auth.login(username, password));
+        }
+      };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps, null, {forwardRef: true})(Login);
