@@ -65,36 +65,24 @@ class Signup extends React.Component {
         e.preventDefault();
         this.validateForm();
         console.log('sign up');
-        // if ( this.isFormValid() ){
-        //     const arg = {
-        //         first_name: this.state.firstname,
-        //         last_name: this.state.lastname,
-        //         username: this.state.username,
-        //         password: this.state.password,
-        //         email: this.state.email,
-        //         phone_number: this.state.phone
-        //     }
-        //     try {
-        //         let res = await axios.post("http://localhost:8000/api/user/", arg,
-        //                 { 
-        //                     headers: { 
-        //                         'Content-Type': 'application/json',
-        //                     } 
-        //                 });
-        //         console.log(res);
-        //         this.resetState();
-        //     }
-        //     catch(err){
-        //         console.log(err);
-        //         alert(err);
-        //     }
-        // }
+        if ( this.isFormValid() ){
+            let res = this.props.register(this.state.firstname, this.state.lastname, this.state.username, this.state.password, this.state.email, this.state.phone);
+            if ( res ){
+                this.closeSignupModal();
+                console.log('register successful');
+            }
+            else {
+                alert('something wrong');
+            }
+        }
     }
 
     isFormValid = () => {
         let valid = true;
         for(let field in this.state.formErrors ){
-            valid = this.state.formErrors[field] === "" ? true : false;
+            if ( this.state.formErrors[field] !== "" ){
+                valid = false;
+            }
         }
 
         return valid;
@@ -223,7 +211,7 @@ const mapStateToProps = state => {
   
   const mapDispatchToProps = dispatch => {
     return {
-      register: (username, password) => dispatch(auth.register(username, password)),
+      register: (firstname, lastname, username, password, email, phone) => dispatch(auth.register(firstname, lastname, username, password, email, phone)),
     };
   }
   

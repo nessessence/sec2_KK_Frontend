@@ -27,10 +27,10 @@ class RootContainerComponent extends React.Component {
       if (this.props.auth.isLoading) {
         return <em>Loading...</em>;
       } else if (!this.props.auth.isAuthenticated) {
-        return <Redirect to="/" />;
+        return <Redirect to="/home" />;
       } else {
         // return <ChildComponent {...props} />
-        return <Redirect to="/" />
+        return <Redirect to="/home" />
       }
     }} />
   }
@@ -45,7 +45,8 @@ class RootContainerComponent extends React.Component {
           </div>
           <div className="app-content">
             <Switch>
-              <PrivateRoute exact path="/" render={()=> <Home />} />  
+              <PrivateRoute exact path="/"/>
+              <Route exact path='/home' render={()=> <Home />} />
               <Route exact path="/about" render={()=> <About />} />
             </Switch>
           </div>

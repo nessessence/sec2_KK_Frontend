@@ -55,7 +55,8 @@ export const loadUser = () => {
           if (res.status === 200) {
             dispatch({type: 'LOGIN_SUCCESSFUL', data: res.data });
             console.log('login successful');
-            return res.data;
+            // return res.data;
+            return true;
           } else if (res.status === 403 || res.status === 401) {
             dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
             throw res.data;
@@ -67,12 +68,16 @@ export const loadUser = () => {
     }
   }
 
-  export const register = (username, password) => {
+  export const register = (first_name, last_name, username, password, email, phone_number) => {
     return (dispatch, getState) => {
-      let headers = {"Content-Type": "application/json"};
-      let body = JSON.stringify({username, password});
+      let headers = {
+          "Content-Type": "application/json",
+          "Authorization": "Token ead12abc8e793aa3447e2464c79abfccc5225d1c"
+         };
+      let body = JSON.stringify({first_name, last_name, username, password, email, phone_number});
+      console.log(body);
   
-      return fetch("/api/auth/register/", {headers, body, method: "POST"})
+      return fetch("/api/user/", {headers, body, method: "POST"})
         .then(res => {
           if (res.status < 500) {
             return res.json().then(data => {
@@ -95,5 +100,35 @@ export const loadUser = () => {
             throw res.data;
           }
         })
+    }
+  }
+
+  export const logout = () => {
+    return (dispatch, getState) => {
+    //   let headers = {"Content-Type": "application/json"};
+  
+    //   return fetch("/api/auth/logout/", {headers, body: "", method: "POST"})
+    //     .then(res => {
+    //       if (res.status === 204) {
+    //         return {status: res.status, data: {}};
+    //       } else if (res.status < 500) {
+    //         return res.json().then(data => {
+    //           return {status: res.status, data};
+    //         })
+    //       } else {
+    //         console.log("Server Error!");
+    //         throw res;
+    //       }
+    //     })
+    //     .then(res => {
+    //       if (res.status === 204) {
+    //         dispatch({type: 'LOGOUT_SUCCESSFUL'});
+    //         return res.data;
+    //       } else if (res.status === 403 || res.status === 401) {
+    //         dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
+    //         throw res.data;
+    //       }
+    //     })
+        dispatch({type: 'LOGOUT_SUCCESSFUL'});
     }
   }

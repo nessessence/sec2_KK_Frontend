@@ -36,14 +36,22 @@ class Login extends React.Component {
         console.log('handle submit');
         if ( this.isFormValid() ){
             console.log('form valid');
-            this.props.login(this.state.username, this.state.password);
+            let res = this.props.login(this.state.username, this.state.password);
+            if ( res ){
+                this.closeLoginModal();
+            }
+            else {
+                alert(res);
+            }
         }
     }
 
     isFormValid = () => {
         let valid = true;
         for(let field in this.state.formErrors ){
-            valid = this.state.formErrors[field] === "" ? true : false;
+            if ( this.state.formErrors[field] !== "" ){
+                valid = false;
+            }
         }
 
         return valid;
