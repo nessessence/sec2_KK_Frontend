@@ -13,7 +13,9 @@ class Login extends React.Component {
             formErrors: {
                 username: "",
                 password: ""
-            }
+            },
+            is400Err: false,
+            isOtherErr: false
         }
     }
 
@@ -29,20 +31,33 @@ class Login extends React.Component {
         })
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault();
         this.validateForm();
         
         console.log('handle submit');
         if ( this.isFormValid() ){
             console.log('form valid');
-            let res = this.props.login(this.state.username, this.state.password);
-            if ( res ){
+            try {
+                await this.props.login(this.state.username, this.state.password);
                 this.closeLoginModal();
+                console.log('close log in modal');
+                this.props.loadUser();
             }
-            else {
-                alert(res);
-            }
+            catch (status){
+                if ( status === 400 ){
+                    this.setState({
+                        is400Err: true,
+                        isOtherErr: false
+                    })
+                }
+                else {
+                    this.setState({
+                        is400Err: false,
+                        isOtherErr: true
+                    })
+                }
+            }  
         }
     }
 
@@ -79,6 +94,10 @@ class Login extends React.Component {
     }
 
     render(){
+
+        let errText = this.state.is400Err ? "username or password is not correct" : 
+                        this.state.isOtherErr ? "something went wrong" : "";
+
         return (
             <Modal show={this.state.isOpen} onHide={this.closeLoginModal}>
                 <Form onSubmit={this.handleSubmit}>
@@ -91,6 +110,7 @@ class Login extends React.Component {
                             <Form.Control type="password" placeholder="Password" name="password" onChange={this.handleChange}/>
                             <p className="error-form-field">{this.state.formErrors.password}</p>
                         </Form.Group>
+                        <p className="error-form-field">{errText}</p>
                     </Modal.Body>
                     <Modal.Footer>
                         <div>
@@ -108,7 +128,8 @@ class Login extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        isAuthenticated: state.auth.isAuthenticated
+        isAuthenticated: state.auth.isAuthenticated,
+        errors: state.auth.errors
     };
 }
   
@@ -116,6 +137,9 @@ const mapDispatchToProps = dispatch => {
     return {
         login: (username, password) => {
           return dispatch(auth.login(username, password));
+        },
+        loadUser: () => {
+            return dispatch(auth.loadUser());
         }
       };
 }

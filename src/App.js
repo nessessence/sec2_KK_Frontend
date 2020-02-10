@@ -3,10 +3,6 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
 
-import Home from './components/home/Home';
-import NavBar from './components/navbar/NavBar';
-import About from './components/about/About';
-
 import { createStore, applyMiddleware } from 'redux';
 import { Provider, connect } from 'react-redux';
 
@@ -14,6 +10,10 @@ import thunk from 'redux-thunk';
 import {auth} from './actions';
 import myApp from './reducers';
 
+import Home from './components/home/Home';
+import NavBar from './components/navbar/NavBar';
+import About from './components/about/About';
+import ChangePassword from './components/navbar/ChagePassword';
 
 let store = createStore(myApp, applyMiddleware(thunk));
 
@@ -24,13 +24,10 @@ class RootContainerComponent extends React.Component {
 
   PrivateRoute = ({component: ChildComponent, ...rest}) => {
     return <Route {...rest} render={props => {
-      if (this.props.auth.isLoading) {
-        return <em>Loading...</em>;
-      } else if (!this.props.auth.isAuthenticated) {
+      if (!this.props.auth.isAuthenticated) {
         return <Redirect to="/home" />;
       } else {
-        // return <ChildComponent {...props} />
-        return <Redirect to="/home" />
+        return <ChildComponent {...props} />
       }
     }} />
   }
@@ -45,7 +42,7 @@ class RootContainerComponent extends React.Component {
           </div>
           <div className="app-content">
             <Switch>
-              <PrivateRoute exact path="/"/>
+              <PrivateRoute exact path="/profile/change_password" component={ChangePassword}/>
               <Route exact path='/home' render={()=> <Home />} />
               <Route exact path="/about" render={()=> <About />} />
             </Switch>

@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const loadUser = () => {
     return (dispatch, getState) => {
       dispatch({type: "USER_LOADING"});
@@ -10,9 +12,8 @@ export const loadUser = () => {
   
       if (token) {
         headers["Authorization"] = `Token ${token}`;
-      }
 
-      return fetch("/api/user", {headers, })
+        return fetch("/api/user/prayuthzaa/", {headers, })
         .then(res => {
           if (res.status < 500) {
             return res.json().then(data => {
@@ -31,7 +32,9 @@ export const loadUser = () => {
             dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
             throw res.data;
           }
-        })
+        });
+      }
+
     }
   }
 
@@ -55,14 +58,13 @@ export const loadUser = () => {
           if (res.status === 200) {
             dispatch({type: 'LOGIN_SUCCESSFUL', data: res.data });
             console.log('login successful');
-            // return res.data;
-            return true;
+            return res.data;
           } else if (res.status === 403 || res.status === 401) {
             dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
-            throw res.data;
+            throw res.status;
           } else {
             dispatch({type: "LOGIN_FAILED", data: res.data});
-            throw res.data;
+            throw res.status;
           }
         })
     }
@@ -131,4 +133,27 @@ export const loadUser = () => {
     //     })
         dispatch({type: 'LOGOUT_SUCCESSFUL'});
     }
+  }
+
+  export const changePassword = (username, password) => {
+    
+    return async (dispatch, getState) => {
+
+      const token = getState().auth.token;
+
+      try{
+        let res = await axios.post("http://localhost:8000/api/user/"+username+"/change_password/", JSON.stringify({password}),
+            {
+              'Content-Type': 'application/json',
+              'Authorization': 'Token '+token
+            });
+        dispatch({type: 'USER_LOADED', user: res.data });
+        return res.data;
+      }
+      catch(err){
+        console.log("error");
+        throw err;
+      }
+      
+    };
   }

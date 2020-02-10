@@ -2,8 +2,10 @@ import React from 'react';
 import {Navbar, Nav} from 'react-bootstrap';
 import {NavLink, Redirect} from 'react-router-dom'
 import './navbar.css';
+
 import Login from './Login';
 import Signup from './Signup';
+import Profile from './Profile';
 
 import {connect} from 'react-redux';
 import {auth} from '../../actions';
@@ -46,6 +48,7 @@ class NavBar extends React.Component {
                     <div className="nav-button-group">
                         {authButtons}
                     </div>
+                    {this.props.isAuthenticated ? <Profile /> : null}
                     <NavLink className="nav-button" exact to="/about">About</NavLink>
                 </Navbar.Collapse>
                 { this.state.redirect ? <Redirect to="/" /> : null}
@@ -57,7 +60,7 @@ class NavBar extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        isAuthenticated: state.auth.isAuthenticated
+        isAuthenticated: state.auth.isAuthenticated,
     };
 }
 

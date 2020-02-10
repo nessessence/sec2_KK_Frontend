@@ -15,11 +15,13 @@ const initialState = {
             return {...state, isLoading: true};
   
         case 'USER_LOADED':
+            console.log(action.user);
             return {...state, isAuthenticated: true, isLoading: false, user: action.user};
   
         case 'LOGIN_SUCCESSFUL':
         case 'REGISTRATION_SUCCESSFUL':
                 localStorage.setItem("token", action.data.token);
+                console.log(state);
                 return {...state, ...action.data, isAuthenticated: true, isLoading: false, errors: null};
   
         case 'AUTHENTICATION_ERROR':
