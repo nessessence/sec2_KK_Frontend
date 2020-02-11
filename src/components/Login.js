@@ -1,7 +1,7 @@
 import React from 'react';
 import {Form,Button,Modal} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import {auth} from '../../actions';
+import {auth} from '../actions';
 
 class Login extends React.Component {
     constructor(props){
@@ -42,7 +42,7 @@ class Login extends React.Component {
                 await this.props.login(this.state.username, this.state.password);
                 this.closeLoginModal();
                 console.log('close log in modal');
-                this.props.loadUser();
+                this.props.loadUser(this.state.username);
             }
             catch (status){
                 if ( status === 400 ){
@@ -138,8 +138,8 @@ const mapDispatchToProps = dispatch => {
         login: (username, password) => {
           return dispatch(auth.login(username, password));
         },
-        loadUser: () => {
-            return dispatch(auth.loadUser());
+        loadUser: (username) => {
+            return dispatch(auth.loadUser(username));
         }
       };
 }

@@ -10,10 +10,11 @@ import thunk from 'redux-thunk';
 import {auth} from './actions';
 import myApp from './reducers';
 
-import Home from './components/home/Home';
-import NavBar from './components/navbar/NavBar';
-import About from './components/about/About';
-import ChangePassword from './components/navbar/ChagePassword';
+import Home from './components/Home';
+import NavBar from './components/NavBar';
+import About from './components/About';
+import ChangePassword from './components/ChagePassword';
+import Profile from './components/Profile';
 
 let store = createStore(myApp, applyMiddleware(thunk));
 
@@ -43,7 +44,8 @@ class RootContainerComponent extends React.Component {
           <div className="app-content">
             <Switch>
               <PrivateRoute exact path="/profile/change_password" component={ChangePassword}/>
-              <Route exact path='/home' render={()=> <Home />} />
+              <PrivateRoute exact path="/profile" component={Profile} />
+              <Route exact path='/' render={()=> <Home />} />
               <Route exact path="/about" render={()=> <About />} />
             </Switch>
           </div>

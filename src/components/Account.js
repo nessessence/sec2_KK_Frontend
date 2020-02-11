@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Dropdown } from 'react-bootstrap';
 import { Link, NavLink } from 'react-router-dom';
+import Profile from './Profile';
 
-class Profile extends React.Component {
+class Account extends React.Component {
     constructor(props){
         super(props);
     }
@@ -37,8 +38,8 @@ class Profile extends React.Component {
                     <Dropdown.Menu>
                         <Dropdown.Header>{this.props.user?.first_name+" "+this.props.user?.last_name}</Dropdown.Header>
                         <Dropdown.Divider />
-                        <Link className="dropdown-item" to="/about">profile</Link>
-                        <Link className="dropdown-item" to="/about">setting</Link>
+                        <Link className="dropdown-item" to="/profile">profile</Link>
+                        <Link className="dropdown-item" to="/history">view history</Link>
                         <Link className="dropdown-item" to="/profile/change_password">change password</Link>
                     </Dropdown.Menu>
                 </Dropdown>
@@ -55,5 +56,5 @@ const mapStateToProps = state => {
     };
 }
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps)(Account);
 

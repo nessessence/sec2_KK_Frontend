@@ -1,29 +1,34 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {auth} from '../../actions';
+import {auth} from '../actions';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 
 class ChangePassword extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            oldPassword: "",
             newPassword: "",
             confirmNewPassword: "",
             formErrors: {
-                oldPassword: "",
                 newPassword: "",
                 confirmNewPassword: ""
             }
         }
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault();
         this.validateForm();
 
         if ( this.isFormValid() ){
-            this.props.changePassword(this.props.user.username, this.state.password);
+            try{
+              await this.props.changePassword(this.props.username, this.state.newPassword);
+                alert('password changed');
+            }
+            catch(err){
+                alert(err);
+            }
+            
         }
     }
 
@@ -39,18 +44,13 @@ class ChangePassword extends React.Component {
 
     validateForm = () => {
         let formErrors = this.state.formErrors;
-
-        let oldPassword = this.state.oldPassword;
-        if ( oldPassword.length === 0 ){
-            formErrors.oldPassword =  "this field is required";
-        }
-        else if ( oldPassword !== this.props.user.password ){
-            formErrors.oldPassword =  "password is not correct";
-        }
         
         let newPassword = this.state.newPassword;
         if ( newPassword.length === 0 ){
             formErrors.newPassword =  "this field is required";
+        }
+        else {
+            formErrors.newPassword = "";
         }
 
         let confirmNewPassword = this.state.confirmNewPassword;
@@ -59,6 +59,9 @@ class ChangePassword extends React.Component {
         }
         else if ( newPassword.length > 0 && newPassword !== confirmNewPassword ){
             formErrors.confirmNewPassword = "new password is not match";
+        }
+        else {
+            formErrors.confirmNewPassword = "";
         }
 
         this.setState({
@@ -80,13 +83,6 @@ class ChangePassword extends React.Component {
                 <br />
                 <br />
                 <Form onSubmit={this.handleSubmit}>
-                    <Form.Group as={Row}>
-                        <Form.Label column sm='3'>old password</Form.Label>
-                        <Col sm='9'>
-                            <Form.Control name="oldPassword" type="password" onChange={this.handleChange}></Form.Control>
-                            <p className="error-form-field text-left">{this.state.formErrors.oldPassword}</p>
-                        </Col>
-                    </Form.Group>
                     <Form.Group as={Row}>
                         <Form.Label column sm='3'>new password</Form.Label>
                         <Col sm='9'>
@@ -110,7 +106,7 @@ class ChangePassword extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        user: state.auth.user
+       username: state.auth.user.username
     };
 }
   

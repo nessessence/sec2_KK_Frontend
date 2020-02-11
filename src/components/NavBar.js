@@ -5,10 +5,10 @@ import './navbar.css';
 
 import Login from './Login';
 import Signup from './Signup';
-import Profile from './Profile';
+import Account from './Account';
 
 import {connect} from 'react-redux';
-import {auth} from '../../actions';
+import {auth} from '../actions';
 
 class NavBar extends React.Component {
     constructor(props){
@@ -48,7 +48,7 @@ class NavBar extends React.Component {
                     <div className="nav-button-group">
                         {authButtons}
                     </div>
-                    {this.props.isAuthenticated ? <Profile /> : null}
+                    {this.props.isAuthenticated ? <Account /> : null}
                     <NavLink className="nav-button" exact to="/about">About</NavLink>
                 </Navbar.Collapse>
                 { this.state.redirect ? <Redirect to="/" /> : null}
