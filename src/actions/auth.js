@@ -188,3 +188,28 @@ export const loadUser = (username) => {
       }
     };
   }
+
+  export const loadHistory = () => {
+    return async (dispatch, getState) => {
+      const token = getState().auth.token;
+      let username = getState().auth.user.username;
+      console.log(token);
+
+      let config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Token '+token
+        }
+      }
+
+      try{
+        let res = await axios.get("http://localhost:8000/api/log/"+username+"/", config);
+        console.log(res.data);
+        return res.data;
+      }
+      catch(err){
+        console.log("error");
+        throw err;
+      }
+    };
+  }

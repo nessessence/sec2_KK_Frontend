@@ -15,6 +15,7 @@ import NavBar from './components/NavBar';
 import About from './components/About';
 import ChangePassword from './components/ChagePassword';
 import Profile from './components/Profile';
+import History from './components/History';
 
 let store = createStore(myApp, applyMiddleware(thunk));
 
@@ -45,6 +46,7 @@ class RootContainerComponent extends React.Component {
             <Switch>
               <PrivateRoute exact path="/profile/change_password" component={ChangePassword}/>
               <PrivateRoute exact path="/profile" component={Profile} />
+              <PrivateRoute exact path="/history" component={History} />
               <Route exact path='/' render={()=> <Home />} />
               <Route exact path="/about" render={()=> <About />} />
             </Switch>
