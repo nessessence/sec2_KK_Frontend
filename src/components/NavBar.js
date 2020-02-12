@@ -35,7 +35,7 @@ class NavBar extends React.Component {
             authButtons.push(<span key="signup-modal" className="nav-button btn btn-outline-success" onClick={()=>this.signupRef.current.openSignupModal()}>Sign Up</span>);
         }
         else {
-            authButtons.push(<span key="logout-button" className="nav-button btn btn-outline-success" onClick={()=>this.handleLogout()}>Log Out</span>);
+            authButtons.push(<span key="logout-button" className="nav-button btn btn-outline-secondary" onClick={()=>this.handleLogout()}>Log Out</span>);
         }
 
         return (
@@ -47,8 +47,12 @@ class NavBar extends React.Component {
                 <Navbar.Collapse id="basic-navbar-nav" className="d-flex flex-row-reverse">
                     <div className="nav-button-group">
                         {authButtons}
-                    </div>
+                    </div>  
                     {this.props.isAuthenticated ? <Account /> : null}
+                    <div className="nav-button-group">
+                        <NavLink className="nav-button btn btn-success" exact to="/view_court">View Court</NavLink>
+                        {this.props.isAuthenticated ? <NavLink className="nav-button btn btn-outline-success" exact to="/create_court">Create Court</NavLink> : null}
+                    </div>
                     <NavLink className="nav-button" exact to="/about">About</NavLink>
                 </Navbar.Collapse>
                 { this.state.redirect ? <Redirect to="/" /> : null}
