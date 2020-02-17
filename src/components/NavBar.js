@@ -31,29 +31,26 @@ class NavBar extends React.Component {
 
         let authButtons = [];
         if ( !this.props.isAuthenticated ){
-            authButtons.push(<span key="login-modal" className="nav-button btn btn-outline-success" onClick={()=>this.loginRef.current.openLoginModal()}>Log In</span>);
-            authButtons.push(<span key="signup-modal" className="nav-button btn btn-outline-success" onClick={()=>this.signupRef.current.openSignupModal()}>Sign Up</span>);
+            authButtons.push(<span key="signup-modal" className="nav-button" onClick={()=>this.signupRef.current.openSignupModal()}>Sign Up</span>);
+            authButtons.push(<span key="login-modal" className="nav-button" onClick={()=>this.loginRef.current.openLoginModal()}>Log In</span>);
         }
         else {
-            authButtons.push(<span key="logout-button" className="nav-button btn btn-outline-secondary" onClick={()=>this.handleLogout()}>Log Out</span>);
+            authButtons.push(<span key="logout-button" className="nav-button" onClick={()=>this.handleLogout()}>Log Out</span>);
         }
 
         return (
-            <Navbar bg="light" expand="lg">
+            <Navbar expand="lg">
                 <Login ref={this.loginRef}/>
                 <Signup ref={this.signupRef}/>
-                <Navbar.Brand><NavLink className="nav-button" exact to="/">CourtCatch</NavLink></Navbar.Brand>
+                <Navbar.Brand><NavLink className="nav-button" exact to="/"><span style={{color: "white"}}>CourtCatch</span></NavLink></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav" className="d-flex flex-row-reverse">
-                    <div className="nav-button-group">
-                        {authButtons}
-                    </div>  
-                    {this.props.isAuthenticated ? <Account /> : null}
-                    <div className="nav-button-group">
-                        <NavLink className="nav-button btn btn-success" exact to="/view_court">View Court</NavLink>
-                        {this.props.isAuthenticated ? <NavLink className="nav-button btn btn-outline-success" exact to="/create_court">Create Court</NavLink> : null}
-                    </div>
-                    <NavLink className="nav-button" exact to="/about">About</NavLink>
+                <div className="auth-button-group">
+                    {authButtons}
+                </div>
+                <NavLink className="nav-button" activeClassName="nav-button-active" exact to="/become_a_provider">Become A Provider</NavLink>
+                <NavLink className="nav-button" activeClassName="nav-button-active" exact to="/contact">Contact</NavLink>
+                <NavLink className="nav-button" activeClassName="nav-button-active" exact to="/about">About</NavLink>
                 </Navbar.Collapse>
                 { this.state.redirect ? <Redirect to="/" /> : null}
                 </Navbar>

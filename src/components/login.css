@@ -1,0 +1,53 @@
+.modal-header {
+    border-bottom: 0 none;
+}
+
+.modal-footer {
+    margin-top: 40px;
+    border-top: 0 none;
+}
+
+.modal-content {
+    padding: 20px;
+}
+
+.modal-title {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.gradient-text {
+    background-image: -webkit-linear-gradient(left,#3d7cfb 0%,#35dbf7 50%,#4cc992); /* For Chrome and Safari */
+    background-image:    -moz-linear-gradient(left,#3d7cfb 0%,#35dbf7 50%,#4cc992); /* For old Fx (3.6 to 15) */
+    background-image:     -ms-linear-gradient(left,#3d7cfb 0%,#35dbf7 50%,#4cc992); /* For pre-releases of IE 10*/
+    background-image:      -o-linear-gradient(left,#3d7cfb 0%,#35dbf7 50%,#4cc992); /* For old Opera (11.1 to 12.0) */
+    background-image:         linear-gradient(to right,#3d7cfb 0%,#35dbf7 50%,#4cc992); /* Standard syntax; must be last */
+    color:transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    letter-spacing: 8px;
+}
+
+.gradient-button {
+    border-radius: 100rem;
+    font-size: 1rem;
+    padding: .5rem 3rem;
+    border: solid 3px transparent;
+    background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)),  linear-gradient(to right,#3d7cfb 0%,#35dbf7 50%,#4cc992); /* Standard syntax; must be last */
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    box-shadow: 2px 1000px 1px #fff inset;
+}
+
+.form-control {
+    border-top: 0 none;
+    border-left: 0 none;
+    border-right: 0 none;
+    border-radius: 0;
+}
+
+.form-control::-webkit-input-placeholder { color: rgb(197, 197, 197); }  /* WebKit, Blink, Edge */
+.form-control:-moz-placeholder { color: rgb(197, 197, 197); }  /* Mozilla Firefox 4 to 18 */
+.form-control::-moz-placeholder { color: rgb(197, 197, 197); }  /* Mozilla Firefox 19+ */
+.form-control:-ms-input-placeholder { color: rgb(197, 197, 197); }  /* Internet Explorer 10-11 */
+.form-control::-ms-input-placeholder { color: rgb(197, 197, 197); }  /* Microsoft Edge */

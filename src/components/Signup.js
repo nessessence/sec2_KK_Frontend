@@ -2,6 +2,7 @@ import React from 'react';
 import {Form,Button,Modal} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {auth} from '../actions';
+import './login.css';
 
 class Signup extends React.Component {
     constructor(props){
@@ -15,6 +16,7 @@ class Signup extends React.Component {
             confirmPassword: "",
             email: "",
             phone: "",
+            agreement: false,
             formErrors: {
                 firstname: "",
                 lastname: "",
@@ -23,6 +25,7 @@ class Signup extends React.Component {
                 confirmPassword: "",
                 email: "",
                 phone: "",
+                agreement: ""
             }
         }
     }
@@ -35,7 +38,17 @@ class Signup extends React.Component {
 
     closeSignupModal = () => {
         this.setState({
-            isOpen: false
+            isOpen: false,
+            formErrors: {
+                firstname: "",
+                lastname: "",
+                username: "",
+                password: "",
+                confirmPassword: "",
+                email: "",
+                phone: "",
+                agreement: false
+            }
         })
     }
 
@@ -49,6 +62,7 @@ class Signup extends React.Component {
             confirmPassword: "",
             email: "",
             phone: "",
+            agreement: false,
             formErrors: {
                 firstname: "",
                 lastname: "",
@@ -57,6 +71,7 @@ class Signup extends React.Component {
                 confirmPassword: "",
                 email: "",
                 phone: "",
+                agreement: ""
             }
         });
     }
@@ -146,6 +161,14 @@ class Signup extends React.Component {
             formErrors.phone = "";
         }   
 
+        let agreement = this.state.agreement;
+        if ( agreement === false ){
+            formErrors.agreement = "you must accept the agreement"
+        }
+        else {
+            formErrors.agreement = "";
+        }
+
         this.setState({
             formErrors: formErrors
         })
@@ -153,49 +176,68 @@ class Signup extends React.Component {
 
     handleChange = e => {
         const { name,value } = e.target
-        this.setState({
-            [name]: value
-        })
+        if ( name === "agreement" ){
+            this.setState({
+                agreement: e.target.checked
+            });
+        }
+        else {
+            this.setState({
+                [name]: value
+            })
+        }
+        
     }
 
     render(){
         return (
             <Modal show={this.state.isOpen} onHide={this.closeSignupModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title><span className="gradient-text">SIGNUP</span></Modal.Title>
+                </Modal.Header>
                 <Form onSubmit={this.handleSubmit}>
                     <Modal.Body>
                         <Form.Group>
-                            <Form.Control type="text" placeholder="firstname" name="firstname"  onChange={this.handleChange}/>
+                            <Form.Control type="text" placeholder="FIRSTNAME" name="firstname"  onChange={this.handleChange}/>
                             <p className="error-form-field">{this.state.formErrors.firstname}</p>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Control type="text" placeholder="lastname" name="lastname"  onChange={this.handleChange}/>
+                            <Form.Control type="text" placeholder="LASTNAME" name="lastname"  onChange={this.handleChange}/>
                             <p className="error-form-field">{this.state.formErrors.lastname}</p>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Control type="text" placeholder="username" name="username"  onChange={this.handleChange}/>
+                            <Form.Control type="text" placeholder="USERNAME" name="username"  onChange={this.handleChange}/>
                             <p className="error-form-field">{this.state.formErrors.username}</p>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Control type="password" placeholder="password" name="password"  onChange={this.handleChange}/>
+                            <Form.Control type="password" placeholder="PASSWORD" name="password"  onChange={this.handleChange}/>
                             <p className="error-form-field">{this.state.formErrors.password}</p>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Control type="password" placeholder="confirm password" name="confirmPassword"  onChange={this.handleChange}/>
+                            <Form.Control type="password" placeholder="CONFIRM PASSWORD" name="confirmPassword"  onChange={this.handleChange}/>
                             <p className="error-form-field">{this.state.formErrors.confirmPassword}</p>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Control type="text" placeholder="email" name="email"  onChange={this.handleChange}/>
+                            <Form.Control type="text" placeholder="EMAIL" name="email"  onChange={this.handleChange}/>
                             <p className="error-form-field">{this.state.formErrors.email}</p>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Control type="text" placeholder="phone number" name="phone" onChange={this.handleChange}/>
+                            <Form.Control type="text" placeholder="PHONE NUMBER" name="phone" onChange={this.handleChange}/>
                             <p className="error-form-field">{this.state.formErrors.phone}</p>
                         </Form.Group>
+                        <Form.Group>
+                            <Form.Check type="checkbox">
+                                <Form.Check.Input name="agreement" type="checkbox" onChange={this.handleChange}/>
+                                <Form.Check.Label>I agree to the <a href="#">terms and conditions</a>.</Form.Check.Label>
+                            </Form.Check>
+                            <p className="error-form-field">{this.state.formErrors.agreement}</p>
+                        </Form.Group>
+                        
                     </Modal.Body>
                     <Modal.Footer>
-                    <Button variant="primary" type="submit" className="w-100">
-                        Sign Up
-                    </Button>
+                        <button type="submit" className="gradient-button">
+                            <span className="gradient-text">FINISH</span>
+                        </button>
                     </Modal.Footer>
                 </Form>
             </Modal>

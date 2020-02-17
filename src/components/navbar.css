@@ -1,14 +1,26 @@
+.navbar {
+	background: rgb(0, 0, 0,0.5);
+}
+
 .nav-button {
     /* background-color: transparent; */
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-left: 25px;
     text-decoration: none !important;
-    color: black;
+    color: white;
 }
 
 .nav-button:hover {
     color: turquoise;
     cursor: pointer;
+}
+
+.nav-button-active {
+	color: turquoise;
+}
+
+.auth-button-group {
+	border-left: thin solid #ffffff;
+	margin-left: 25px;
 }
 
 .nav-button-group {

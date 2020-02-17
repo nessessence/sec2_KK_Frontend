@@ -2,6 +2,7 @@ import React from 'react';
 import {Form,Button,Modal} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {auth} from '../actions';
+import './login.css';
 
 class Login extends React.Component {
     constructor(props){
@@ -100,25 +101,28 @@ class Login extends React.Component {
 
         return (
             <Modal show={this.state.isOpen} onHide={this.closeLoginModal}>
+                <Modal.Header closeButton> 
+                    <Modal.Title><span className="gradient-text">LOGIN</span></Modal.Title>
+                </Modal.Header>
                 <Form onSubmit={this.handleSubmit}>
                     <Modal.Body>
                         <Form.Group>
-                            <Form.Control type="text" placeholder="Username" name="username" onChange={this.handleChange}/>
+                            <Form.Control type="text" placeholder="USERNAME" name="username" onChange={this.handleChange}/>
                             <p className="error-form-field">{this.state.formErrors.username}</p>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Control type="password" placeholder="Password" name="password" onChange={this.handleChange}/>
+                            <Form.Control type="password" placeholder="PASSWORD" name="password" onChange={this.handleChange}/>
                             <p className="error-form-field">{this.state.formErrors.password}</p>
                         </Form.Group>
                         <p className="error-form-field">{errText}</p>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <div>
+                        <div className="text-right">
                             <a href="#">forget password?</a>
                         </div>
-                        <Button className="ml-auto" variant="primary" type="submit" className="w-100">
-                            Log In
-                        </Button>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <button type="submit" className="gradient-button">
+                            <span className="gradient-text">LOGIN</span>
+                        </button>
                     </Modal.Footer>
                 </Form>
             </Modal>
