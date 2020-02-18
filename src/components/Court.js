@@ -194,11 +194,13 @@ class Court extends React.Component {
         }
 
         return (
-            <div className="container">
-                <h1>Court</h1>
-                {JSON.stringify(this.state.court)}
-                {addReviewSection}
-                {addImageSection}
+            <div className="app-content-inner">
+                <div className="container">
+                    <h1>Court</h1>
+                    {JSON.stringify(this.state.court)}
+                    {addReviewSection}
+                    {addImageSection}
+                </div>  
             </div>
         );
     }

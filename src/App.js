@@ -34,7 +34,7 @@ class RootContainerComponent extends React.Component {
     return <Route {...rest} render={props => {
       if (!this.props.auth.isAuthenticated) {
         console.log('app.js not authenticate');
-        return <Redirect to="/home" />;
+        return <Redirect to="/" />;
       } else {
         return <ChildComponent {...props} />
       }

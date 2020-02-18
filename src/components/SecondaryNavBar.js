@@ -16,21 +16,17 @@ class SecondaryNavBar extends React.Component {
         }
 
         return (
-            <Navbar className="secondary-navbar shadow-sm" expand="lg">
-                <Navbar.Toggle aria-controls="sec-navbar-nav" />
-                    {/* <Navbar.Collapse id="sec-navbar-nav"> */}
-                    <NavLink className="sec-nav-button nav-button" activeClassName="sec-nav-button-active" exact to="/booking">Booking</NavLink>
-                    <NavLink className="sec-nav-button nav-button" activeClassName="sec-nav-button-active" exact to="/my_courts">My Courts</NavLink>
-                    {
-                        this.props.user.is_verified ? 
-                        <NavLink className="sec-nav-button nav-button" activeClassName="sec-nav-button-active" exact to="/add_court">Add Court</NavLink>
-                        : <NavLink className="sec-nav-button nav-button" activeClassName="sec-nav-button-active" exact to="/become_a_provider">Become A Provider</NavLink>
-
-                    }
-                    <NavLink className="sec-nav-button nav-button" activeClassName="sec-nav-button-active" exact to="/history">History</NavLink>
-                    <NavLink className="sec-nav-button nav-button" activeClassName="sec-nav-button-active" exact to="/profile">Profile</NavLink>
-                {/* </Navbar.Collapse> */}
-            </Navbar>
+            <div className="secondary-navbar shadow-sm" expand="lg">
+                <NavLink className="sec-nav-button nav-button" activeClassName="sec-nav-button-active" exact to="/booking">Booking</NavLink>
+                <NavLink className="sec-nav-button nav-button" activeClassName="sec-nav-button-active" exact to="/my_courts">My Courts</NavLink>
+                {
+                    this.props.user.is_verified ? 
+                    <NavLink className="sec-nav-button nav-button" activeClassName="sec-nav-button-active" exact to="/add_court">Add Court</NavLink>
+                    : <NavLink className="sec-nav-button nav-button" activeClassName="sec-nav-button-active" exact to="/become_a_provider">Become A Provider</NavLink>
+                }
+                <NavLink className="sec-nav-button nav-button" activeClassName="sec-nav-button-active" exact to="/history">History</NavLink>
+                <NavLink className="sec-nav-button nav-button" activeClassName="sec-nav-button-active" exact to="/profile">Profile</NavLink>
+            </div>
         );
     }
 }

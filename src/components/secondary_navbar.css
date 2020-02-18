@@ -1,5 +1,7 @@
 .secondary-navbar {
     padding: 0;
+    display: flex;
+    flex-flow: row wrap;
 }
 
 .sec-nav-button {

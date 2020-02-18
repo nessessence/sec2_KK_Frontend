@@ -95,3 +95,25 @@ export const reviewCourt = (courtName, score, review) => {
         
     }
 }
+
+export const loadMyCourt = () => {
+    return async (dispatch, getState) => {
+        const token = getState().auth.token;
+
+        let config = {
+            headers: {
+                'Content-Type': "application/json",
+                'Authorization': 'Token '+token
+            }
+        }
+
+        try{
+            let res = await axios.get("http://localhost:8000/api/user/"+getState().auth.user.username+"/courts/", config);
+            return res.data;
+        }
+        catch(err){
+            console.log("error");
+            throw err;
+        }
+    }
+}

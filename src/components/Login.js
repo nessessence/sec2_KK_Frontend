@@ -3,6 +3,7 @@ import {Form,Button,Modal} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {auth} from '../actions';
 import './login.css';
+import { Redirect } from 'react-router-dom';
 
 class Login extends React.Component {
     constructor(props){
@@ -51,7 +52,8 @@ class Login extends React.Component {
                 await this.props.login(this.state.username, this.state.password);
                 this.closeLoginModal();
                 console.log('close log in modal');
-                this.props.loadUser(this.state.username);
+                await this.props.loadUser(this.state.username);
+                return <Redirect to="/" />
             }
             catch (status){
                 if ( status === 400 ){
