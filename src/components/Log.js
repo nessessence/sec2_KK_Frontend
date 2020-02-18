@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {auth} from '../actions';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Table } from 'react-bootstrap';
 
-class History extends React.Component {
+class Log extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -41,23 +41,31 @@ class History extends React.Component {
                 let timestamp = history[i].timestamp;
                 let desc = history[i].desc;
                 historyComponents.push(
-                    <Row>
-                        <Col sm='5'>
-                            <p className="text-left">{this.timeConverter(timestamp)}</p>
-                        </Col>
-                        <Col sm='7'>
-                            <p className="text-left">{desc}</p>
-                        </Col>
-                    </Row>
+                    <tr>
+                        <td width="30%" className="text-left">{this.timeConverter(timestamp)}</td>
+                        <td width="70%" className="text-left">{desc}</td>
+                    </tr>
                 );
             }
         }
 
         return (
-            <div className="container">
-                <h1>History</h1>
-                <br />
-                {historyComponents}
+            <div className="app-content-inner">
+                <div className="container">
+                    <h1>History</h1>
+                    <br />
+                    <Table responsive striped hover>
+                        <thead>
+                            <tr>
+                                <th width="30%">datetime</th>
+                                <th width="70%">description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {historyComponents}
+                        </tbody>
+                    </Table>
+                </div>
             </div>
         );
     }
@@ -77,4 +85,4 @@ const mapDispatchToProps = dispatch => {
       };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps, null, {forwardRef: true})(History);
+export default connect(mapStateToProps, mapDispatchToProps, null, {forwardRef: true})(Log);

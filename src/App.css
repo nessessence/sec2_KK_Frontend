@@ -8,6 +8,8 @@
   text-align: center;
   font-family: 'kanit';
   min-height: 100vh;
+  display: flex;
+  flex-flow: column;
 }
 
 .App-logo {
@@ -46,12 +48,22 @@
 }
 
 .app-content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-flow: column;
+}
+
+.app-content-inner {
+  background-color: white;
+  flex: 1 1 auto;
   padding-top: 30px;
 }
 
 body {
   background-attachment: fixed;
   background: linear-gradient(154.93deg,#3d7cfb 0%,#35dbf7 50%,#4cc992 100%);
+  height: 100%;
+  margin: 0;
 }
 
 button, a {

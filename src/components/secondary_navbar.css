@@ -1,0 +1,14 @@
+.secondary-navbar {
+    padding: 0;
+}
+
+.sec-nav-button {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.sec-nav-button-active {
+    border-bottom-width: 5px;
+    border-color: rgb(17, 145, 85);
+    border-bottom-style: solid;
+}

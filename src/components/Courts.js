@@ -13,37 +13,45 @@ class Courts extends React.Component {
     }
 
     async componentDidMount(){
-        try{
-            let courts = await this.props.loadCourts();
-            this.setState({
-                courts: courts
-            })
-        }
-        catch(err){
-            alert(err)
-        }
+        // try{
+        //     let courts = await this.props.loadCourts();
+        //     this.setState({
+        //         courts: courts
+        //     })
+        // }
+        // catch(err){
+        //     alert(err)
+        // }
         
     }
 
     render(){
 
-        let courts = this.state.courts;
-        let components = [];
-        for(let index in courts){
-            let court = courts[index];
-            components.push(
-                <div className="mb-2">
-                    <NavLink to={"/view_court/"+court.name+"/"}>{JSON.stringify(court)}</NavLink>
-                </div>
-            );
-        }
-
         return (
-            <div className="container">
-                <h1>Courts</h1>
-                {components}
+            <div className="app-content-inner">
+                <div className="container">
+                    <h1>Courts</h1>
+                </div>
             </div>
         );
+
+        // let courts = this.state.courts;
+        // let components = [];
+        // for(let index in courts){
+        //     let court = courts[index];
+        //     components.push(
+        //         <div className="mb-2">
+        //             <NavLink to={"/booking/"+court.name+"/"}>{JSON.stringify(court)}</NavLink>
+        //         </div>
+        //     );
+        // }
+
+        // return (
+        //     <div className="container">
+        //         <h1>Courts</h1>
+        //         {components}
+        //     </div>
+        // );
     }
 }
   

@@ -37,19 +37,7 @@ class Signup extends React.Component {
     }
 
     closeSignupModal = () => {
-        this.setState({
-            isOpen: false,
-            formErrors: {
-                firstname: "",
-                lastname: "",
-                username: "",
-                password: "",
-                confirmPassword: "",
-                email: "",
-                phone: "",
-                agreement: false
-            }
-        })
+        this.resetState();
     }
 
     resetState = () => {

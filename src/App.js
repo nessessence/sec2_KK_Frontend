@@ -15,21 +15,25 @@ import NavBar from './components/NavBar';
 import About from './components/About';
 import ChangePassword from './components/ChagePassword';
 import Profile from './components/Profile';
-import History from './components/History';
+import Log from './components/Log';
 import CreateCourt from './components/CreateCourt';
 import Courts from './components/Courts';
 import Court from './components/Court';
+import SecondaryNavBar from './components/SecondaryNavBar';
+import MyCourt from './components/MyCourt';
+import BecomeAProvider from './components/BecomeAProvider';
 
 let store = createStore(myApp, applyMiddleware(thunk));
 
 class RootContainerComponent extends React.Component {
-  componentDidMount(){
-    this.props.loadUser();
+  async componentDidMount(){
+    await this.props.loadUser();
   }
 
   PrivateRoute = ({component: ChildComponent, ...rest}) => {
     return <Route {...rest} render={props => {
       if (!this.props.auth.isAuthenticated) {
+        console.log('app.js not authenticate');
         return <Redirect to="/home" />;
       } else {
         return <ChildComponent {...props} />
@@ -44,15 +48,18 @@ class RootContainerComponent extends React.Component {
           <div className="App">
           <div>
             <NavBar />
+            {this.props.auth.isAuthenticated ? <SecondaryNavBar /> : null}
           </div>
           <div className="app-content">
             <Switch>
               <PrivateRoute exact path="/profile/change_password" component={ChangePassword}/>
               <PrivateRoute exact path="/profile" component={Profile} />
-              <PrivateRoute exact path="/history" component={History} />
-              <PrivateRoute exact path="/create_court" component={CreateCourt} />
-              <Route exact path="/view_court" component={Courts} />
-              <Route exact path="/view_court/:courtName" component={Court} />
+              <PrivateRoute exact path="/history" component={Log} />
+              <PrivateRoute exact path="/add_court" component={CreateCourt} />
+              <PrivateRoute exact path="/my_courts" component={MyCourt} />
+              <PrivateRoute exact path="/become_a_provider" component={BecomeAProvider} />
+              <Route exact path="/booking" component={Courts} />
+              <Route exact path="/booking/:courtName" component={Court} />
               <Route exact path='/' render={()=> <Home />} />
               <Route exact path="/about" render={()=> <About />} />
             </Switch>

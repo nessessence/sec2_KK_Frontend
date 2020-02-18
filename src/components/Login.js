@@ -22,7 +22,15 @@ class Login extends React.Component {
 
     closeLoginModal = () => {
         this.setState({
-            isOpen: false
+            isOpen: false,
+            username: "",
+            password: "",
+            formErrors: {
+                username: "",
+                password: ""
+            },
+            is400Err: false,
+            isOtherErr: false
         })
     }
 

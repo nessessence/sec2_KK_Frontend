@@ -39,7 +39,7 @@ class NavBar extends React.Component {
         }
 
         return (
-            <Navbar expand="lg">
+            <Navbar className="primary-navbar" expand="lg">
                 <Login ref={this.loginRef}/>
                 <Signup ref={this.signupRef}/>
                 <Navbar.Brand><NavLink className="nav-button" exact to="/"><span style={{color: "white"}}>CourtCatch</span></NavLink></Navbar.Brand>
@@ -48,11 +48,10 @@ class NavBar extends React.Component {
                 <div className="auth-button-group">
                     {authButtons}
                 </div>
-                <NavLink className="nav-button" activeClassName="nav-button-active" exact to="/become_a_provider">Become A Provider</NavLink>
                 <NavLink className="nav-button" activeClassName="nav-button-active" exact to="/contact">Contact</NavLink>
                 <NavLink className="nav-button" activeClassName="nav-button-active" exact to="/about">About</NavLink>
                 </Navbar.Collapse>
-                { this.state.redirect ? <Redirect to="/" /> : null}
+                {/* { this.state.redirect ? <Redirect to="/" /> : null} */}
                 </Navbar>
         );
     }

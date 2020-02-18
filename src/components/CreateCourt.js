@@ -81,28 +81,32 @@ class CreateCourt extends React.Component {
 
     render(){
         return (
-            <div className="container">
-                <h1>Create Court</h1>
-                <Form onSubmit={this.handleSubmit} className="text-left">
-                    <Form.Group>
-                        <Form.Label>Court Name</Form.Label>
-                        <Form.Control name="name" type="text" onChange={this.handleChange}></Form.Control>
-                        <p className="error-form-field">{this.state.formErrors.name}</p>
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Court Price</Form.Label>
-                        <Form.Control name="price" type="number" onChange={this.handleChange}></Form.Control>
-                        <p className="error-form-field">{this.state.formErrors.price}</p>
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Court Description</Form.Label>
-                        <textarea name="desc" className="form-control" row="2" onChange={this.handleChange} placeholder="type something descripes your court"></textarea>
-                        <p className="error-form-field">{this.state.formErrors.desc}</p>
-                    </Form.Group>
-                    <div className="text-right">
-                        <button className="btn btn-primary" type="submit">create</button>
-                    </div>
-                </Form>
+            <div className="app-content-inner">
+                <div className="container">
+                    <h1>Add New Court</h1>
+                    <Form onSubmit={this.handleSubmit} className="text-left">
+                        <Form.Group>
+                            <Form.Label>Court Name</Form.Label>
+                            <Form.Control name="name" type="text" onChange={this.handleChange}></Form.Control>
+                            <p className="error-form-field">{this.state.formErrors.name}</p>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Court Price</Form.Label>
+                            <Form.Control name="price" type="number" onChange={this.handleChange}></Form.Control>
+                            <p className="error-form-field">{this.state.formErrors.price}</p>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Court Description</Form.Label>
+                            <textarea name="desc" className="form-control" row="2" onChange={this.handleChange} placeholder="type something descripes your court"></textarea>
+                            <p className="error-form-field">{this.state.formErrors.desc}</p>
+                        </Form.Group>
+                        <div className="text-right">
+                            <button type="submit" className="gradient-button">
+                                <span className="gradient-text">SUBMIT</span>
+                            </button>
+                        </div>
+                    </Form>
+                </div>
             </div>
         );
     }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {auth} from '../actions';
 import './profile.css';
 import Prayuth from './prayuth.jpg';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Row, Col } from 'react-bootstrap';
 
 class Profile extends React.Component {
     constructor(props){
@@ -36,24 +36,37 @@ class Profile extends React.Component {
 
     render(){
         return (
-            <div className="container">
-                <div className="profile-image-container">
-                    <img className="profile-large" src={Prayuth} />
-                    <h3>{this.props.user.username}</h3>
-                </div>
-                <p>first name: {this.props.user.first_name}</p>
-                <p>last name: {this.props.user.last_name}</p>
-                <p>email: {this.props.user.email}</p>
-                <p>phone number: {this.props.user.phone_number}</p>
-                <br />
-                <p><span>credit </span><span>{this.props.user.credit}</span></p>
-                <div>
-                    <Form onSubmit={this.handleAddCredit}>
-                        <Form.Group>
-                            <Form.Control onChange={this.handleChange} name="amountToAdd" className="mr-2" type="number" style={{width: "10em", display: "inline-block"}} value={this.state.amountToAdd}></Form.Control>
-                            <Button type="submit" className="btn btn-primary">Add Credit</Button>
-                        </Form.Group>
-                    </Form>
+            <div className="app-content-inner">
+                <div className="container">
+                    <h1>Personal Info</h1>
+                    <Row>
+                        <Col sm="4">
+                            <div className="profile-image-container">
+                                <img className="profile-large" src={Prayuth} />
+                            </div>
+                        </Col>
+                        <Col className="text-left">
+                            <br />
+                            <h3>{this.props.user.username}</h3>
+                            <br />
+                            <p>first name:&emsp;{this.props.user.first_name}</p>
+                            <p>last name:&emsp;{this.props.user.last_name}</p>
+                            <p>email:&emsp;{this.props.user.email}</p>
+                            <p>phone number:&emsp;{this.props.user.phone_number}</p>
+                            <br />
+                        </Col>
+                    </Row>
+                    
+                    
+                    {/* <p><span>credit </span><span>{this.props.user.credit}</span></p>
+                    <div>
+                        <Form onSubmit={this.handleAddCredit}>
+                            <Form.Group>
+                                <Form.Control onChange={this.handleChange} name="amountToAdd" className="mr-2" type="number" style={{width: "10em", display: "inline-block"}} value={this.state.amountToAdd}></Form.Control>
+                                <Button type="submit" className="btn btn-primary">Add Credit</Button>
+                            </Form.Group>
+                        </Form>
+                    </div> */}
                 </div>
             </div>
         );
