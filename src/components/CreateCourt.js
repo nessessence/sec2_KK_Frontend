@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {court} from '../actions';
-import { Form } from 'react-bootstrap';
+import { Form, Modal } from 'react-bootstrap';
+import GoogleMapReact from 'google-map-react';
+import Marker from './Marker';
 
 class CreateCourt extends React.Component {
     constructor(props){
@@ -10,10 +12,18 @@ class CreateCourt extends React.Component {
             name: "",
             price: "",
             desc: "",
+            latitude: 13.7563,
+            longtitude: 100.5018,
+            courtCount: "",
+            marker: null,
             formErrors: {
                 name: "",
                 price: "",
-            }
+                latitude: "",
+                longtitude: "",
+                courtCount: "",
+            },
+            maps: null
         }
     }
 
@@ -23,13 +33,19 @@ class CreateCourt extends React.Component {
 
         if ( this.isFormValid() ){
             try {
-                let data = await this.props.createCourt(this.state.name, this.state.price, this.state.desc);
+                let data = await this.props.createCourt(this.state.name, this.state.price, this.state.desc,
+                    this.state.latitude, this.state.longtitude, this.state.courtCount);
                 alert("court created");
                 this.setState({
                     name: "",
                     price: "",
                     desc: ""
-                })
+                });
+                return (
+                    <Modal>
+                        <Modal.Title>adsasdasdasd</Modal.Title>
+                    </Modal>
+                );
             }
             catch(err){
                 alert(err);
@@ -67,6 +83,17 @@ class CreateCourt extends React.Component {
             formErrors.price = "";
         }
 
+        let courtCount = this.state.courtCount;
+        if ( courtCount === "" ){
+            formErrors.courtCount = "this field is required";
+        }
+        else if ( parseInt(courtCount) < 1 ){
+            formErrors.courtCount = "input is invalid";
+        }
+        else {
+            formErrors.courtCount = "";
+        }
+
         this.setState({
             formErrors: formErrors
         })
@@ -77,6 +104,48 @@ class CreateCourt extends React.Component {
         this.setState({
             [name]: value
         })
+    }
+
+    handleLocationChange = ({ position }) => {
+ 
+        this.setState({
+            latitude: position.lat,
+            longtitude: position.lng
+        });
+    }
+
+    handleApiLoaded = (map, maps) => {
+        console.log(map);
+        let marker = new maps.Marker({
+            position: {
+                lat: this.state.latitude,
+                lng: this.state.longtitude
+            },
+            map,
+          });
+          this.setState({
+              marker: marker,
+              maps: maps
+          });
+          console.log(marker);
+    };
+
+   _onClick = (obj) => { 
+       console.log(obj.x, obj.y, obj.lat, obj.lng, obj.event);
+
+        let latitude = obj.lat;
+        let longtitude = obj.lng;
+
+       let maps = this.state.maps;
+       let marker = this.state.marker;
+
+       marker.setPosition(new maps.LatLng(latitude, longtitude));
+       this.setState({
+           latitude: latitude,
+           longtitude: longtitude,
+           marker: marker
+       });
+       
     }
 
     render(){
@@ -100,6 +169,28 @@ class CreateCourt extends React.Component {
                             <textarea name="desc" className="form-control" row="2" onChange={this.handleChange} placeholder="type something descripes your court"></textarea>
                             <p className="error-form-field">{this.state.formErrors.desc}</p>
                         </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Court Count</Form.Label>
+                            <Form.Control type="number" name="courtCount" onChange={this.handleChange}></Form.Control>
+                            <p className="error-form-field">{this.state.formErrors.courtCount}</p>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Select Court Position</Form.Label>
+                            <p className="text-secondary">latitude: <span>{this.state.latitude}</span></p>
+                            <p className="text-secondary">longtitude: <span>{this.state.longtitude}</span></p>
+                            <div style={{width: "100%", height: "600px"}}>
+                                <GoogleMapReact
+                                    bootstrapURLKeys={{ key: "AIzaSyDwekcqGyFp8teM9rkQj97AhwYHIHTv4KQ" }}
+                                    defaultZoom={11}
+                                    center={{lat: this.state.latitude, lng: this.state.longtitude}}
+                                    yesIWantToUseGoogleMapApiInternals
+                                    onGoogleApiLoaded={({ map, maps }) => this.handleApiLoaded(map, maps)}
+                                    onClick={this._onClick}
+                                    >
+                                       
+                                </GoogleMapReact>
+                            </div>
+                            </Form.Group>
                         <div className="text-right">
                             <button type="submit" className="gradient-button">
                                 <span className="gradient-text">SUBMIT</span>
@@ -114,8 +205,8 @@ class CreateCourt extends React.Component {
   
 const mapDispatchToProps = dispatch => {
     return {
-        createCourt: (name,price,desc) => {
-          return dispatch(court.createCourt(name,price,desc));
+        createCourt: (name,price,desc,lat,lng,count) => {
+          return dispatch(court.createCourt(name,price,desc,lat,lng,count));
         },
       };
 }
