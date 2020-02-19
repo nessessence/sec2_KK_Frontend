@@ -23,7 +23,8 @@ class CreateCourt extends React.Component {
                 longtitude: "",
                 courtCount: "",
             },
-            maps: null
+            maps: null,
+            isSubmiting: false
         }
     }
 
@@ -33,13 +34,17 @@ class CreateCourt extends React.Component {
 
         if ( this.isFormValid() ){
             try {
+                this.setState({
+                    isSubmiting: true
+                });
                 let data = await this.props.createCourt(this.state.name, this.state.price, this.state.desc,
                     this.state.latitude, this.state.longtitude, this.state.courtCount);
                 alert("court created");
                 this.setState({
                     name: "",
                     price: "",
-                    desc: ""
+                    desc: "",
+                    isSubmiting: false
                 });
                 return (
                     <Modal>
@@ -48,6 +53,9 @@ class CreateCourt extends React.Component {
                 );
             }
             catch(err){
+                this.setState({
+                    isSubmiting: false
+                });
                 alert(err);
             }
         }
@@ -192,9 +200,10 @@ class CreateCourt extends React.Component {
                             </div>
                             </Form.Group>
                         <div className="text-right">
-                            <button type="submit" className="gradient-button">
+                            {/* <button type="submit" className="gradient-button">
                                 <span className="gradient-text">SUBMIT</span>
-                            </button>
+                            </button> */}
+                            <button className="btn btn-primary" disabled={this.state.isSubmiting}>Add</button>
                         </div>
                     </Form>
                 </div>

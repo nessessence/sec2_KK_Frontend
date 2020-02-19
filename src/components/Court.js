@@ -110,11 +110,7 @@ class Court extends React.Component {
                 console.log(data);
                 console.log(data.location);
                 await this.props.addImageToCourt(this.state.courtName, data.location);
-                this.setState({
-                    file: "",
-                    imagePreviewUrl: "",
-                    uploading: false
-                });
+                window.location.reload();
             }
             catch(err){
                 this.setState({

@@ -47,7 +47,8 @@ class MyCourt extends React.Component {
                                     <Card.Text className="court-desc">{court.desc}</Card.Text>
                                 </Card.Body>
                             </Col>
-                            <Col sm="2" className="d-flex align-items-end">
+                            <Col sm="2" className="d-flex flex-column justify-content-between">
+                                <span className={court.is_verified ? "text-success" : "text-warning"}>{court.is_verified ? "verified" : "pending"}</span>
                                 <span>rating: <span style={{color: "orange"}}>{court.avg_score}</span></span>
                             </Col>
                         </Row>
