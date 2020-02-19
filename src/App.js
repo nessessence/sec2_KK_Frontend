@@ -26,13 +26,11 @@ import BecomeAProvider from './components/BecomeAProvider';
 let store = createStore(myApp, applyMiddleware(thunk));
 
 class RootContainerComponent extends React.Component {
-  async componentDidMount(){
-    console.log(localStorage.getItem('username'));
+  async componentWillMount(){
     await this.props.loadUser(localStorage.getItem('username'));
   }
 
   PrivateRoute = ({component: ChildComponent, ...rest}) => {
-    console.log(this.props.auth);
     return <Route {...rest} render={props => {
       if (!this.props.auth.isAuthenticated) {
         console.log('app.js not authenticate');
@@ -44,6 +42,10 @@ class RootContainerComponent extends React.Component {
   }
 
   render() {
+    if ( this.props.auth.isLoading ){
+      return <h1>loading...</h1>
+    }
+    console.log('start rendering');
     let {PrivateRoute} = this;
     return (
         <BrowserRouter>
