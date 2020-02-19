@@ -19,15 +19,22 @@ const initialState = {
             return {...state, isAuthenticated: true, isLoading: false, user: action.user};
   
         case 'LOGIN_SUCCESSFUL':
+            localStorage.setItem('username', action.username);
+            localStorage.setItem("token", action.data.token);
+            console.log(localStorage.getItem('username'));
+            console.log(action);
+            return {...state, ...action.data, isAuthenticated: true, isLoading: false, errors: null};
         case 'REGISTRATION_SUCCESSFUL':
+                console.log(action);
                 localStorage.setItem("token", action.data.token);
-                console.log(state);
+                localStorage.setItem('username', action.data.result.username);
                 return {...state, ...action.data, isAuthenticated: true, isLoading: false, errors: null};
   
         case 'AUTHENTICATION_ERROR':
         case 'LOGIN_FAILED':
         case 'LOGOUT_SUCCESSFUL':
             localStorage.removeItem("token");
+            localStorage.removeItem("username");
             return {...state, errors: action.data, token: null, user: null,
             isAuthenticated: false, isLoading: false};
   

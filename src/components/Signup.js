@@ -69,9 +69,10 @@ class Signup extends React.Component {
         this.validateForm();
         console.log('sign up');
         if ( this.isFormValid() ){
-            let res = this.props.register(this.state.firstname, this.state.lastname, this.state.username, this.state.password, this.state.email, this.state.phone);
+            let res = await this.props.register(this.state.firstname, this.state.lastname, this.state.username, this.state.password, this.state.email, this.state.phone);
             if ( res ){
                 this.closeSignupModal();
+                await this.props.loadUser(this.state.username);
                 console.log('register successful');
             }
             else {
@@ -242,6 +243,7 @@ const mapStateToProps = state => {
   const mapDispatchToProps = dispatch => {
     return {
       register: (firstname, lastname, username, password, email, phone) => dispatch(auth.register(firstname, lastname, username, password, email, phone)),
+      loadUser: () => dispatch(auth.loadUser())
     };
   }
   

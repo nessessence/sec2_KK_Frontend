@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import {court as courtActions} from '../actions';
 import { Form, Col } from 'react-bootstrap';
 import {upload as uploadFileToS3} from '../s3';
+import ImagePlaceholder from '../images/imagePlaceholder.jpg';
+import './court.css';
 
 class Court extends React.Component {
     constructor(props){
@@ -151,6 +153,10 @@ class Court extends React.Component {
 
     render(){
 
+        if ( this.state.court == null ){
+            return <h1>Loading...</h1>
+        }
+
         let addReviewSection;
         if ( this.state.loadFinish && !this.isUserOwner() ){
             addReviewSection = (
@@ -193,11 +199,20 @@ class Court extends React.Component {
             );
         }
 
+        let courtCarousel;
+        if ( this.state.court.images.length === 0 ){
+            courtCarousel = <img style={{height: "400px"}} src={ImagePlaceholder} alt="court image" />
+        }
+
         return (
             <div className="app-content-inner">
-                <div className="container">
-                    <h1>Court</h1>
-                    {JSON.stringify(this.state.court)}
+                <div className="container text-left">
+                    <h1>{this.state.court.name}</h1>
+                    <p>{this.state.court.desc}</p>
+                    <div className="text-center court-corousel-holder">
+                        {courtCarousel}
+                    </div>
+                    <p>rating: <span style={{color: "orange"}}>{this.state.court.avg_score}</span></p>
                     {addReviewSection}
                     {addImageSection}
                 </div>  

@@ -50,12 +50,13 @@ class Login extends React.Component {
             console.log('form valid');
             try {
                 await this.props.login(this.state.username, this.state.password);
-                this.closeLoginModal();
                 console.log('close log in modal');
                 await this.props.loadUser(this.state.username);
+                this.closeLoginModal();
                 return <Redirect to="/" />
             }
             catch (status){
+                console.log(status);
                 if ( status === 400 ){
                     this.setState({
                         is400Err: true,

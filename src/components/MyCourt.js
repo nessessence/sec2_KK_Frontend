@@ -5,7 +5,7 @@ import { loadMyCourt } from '../actions/court';
 import { Card, Col, Row } from 'react-bootstrap';
 import ImagePlaceholder from '../images/imagePlaceholder.jpg';
 import './mycourt.css';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 class MyCourt extends React.Component {
     constructor(props){
@@ -27,7 +27,7 @@ class MyCourt extends React.Component {
 
     render(){
         if ( !this.state.loadFinish ){
-            return <h1>Loading Courts...</h1>;
+            return null;
         }
 
         let courtComponents = [];
@@ -35,7 +35,7 @@ class MyCourt extends React.Component {
         for(let index in this.state.courts ){
             let court = this.state.courts[index];
             courtComponents.push(
-                <a key={"link-"+court.name} href={"/booking/"+court.name+"/"} className="court-item-holder">
+                <Link key={"link-"+court.name} to={"/booking/"+court.name+"/"} className="court-item-holder">
                     <Card className="court-item">
                         <Row>
                             <Col sm="2">
@@ -48,11 +48,11 @@ class MyCourt extends React.Component {
                                 </Card.Body>
                             </Col>
                             <Col sm="2" className="d-flex align-items-end">
-                                <span>rating: {court.avg_score}</span>
+                                <span>rating: <span style={{color: "orange"}}>{court.avg_score}</span></span>
                             </Col>
                         </Row>
                     </Card>
-                </a>
+                </Link>
             );
         }
 

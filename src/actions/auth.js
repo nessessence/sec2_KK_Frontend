@@ -5,6 +5,7 @@ export const loadUser = (username) => {
       dispatch({type: "USER_LOADING"});
   
       const token = getState().auth.token;
+      console.log("load user " + token);
   
       let headers = {
         "Content-Type": "application/json",
@@ -13,7 +14,7 @@ export const loadUser = (username) => {
       if (token) {
         headers["Authorization"] = `Token ${token}`;
 
-        return fetch("/api/user/"+(username ? username : "prayuthzaa")+"/", {headers, })  
+        return fetch("/api/user/"+(username)+"/", {headers, })  
         .then(res => {
           if (res.status < 500) {
             return res.json().then(data => {
@@ -56,7 +57,7 @@ export const loadUser = (username) => {
         })
         .then(res => {
           if (res.status === 200) {
-            dispatch({type: 'LOGIN_SUCCESSFUL', data: res.data });
+            dispatch({type: 'LOGIN_SUCCESSFUL', data: res.data , username: username});
             console.log('login successful');
             console.log({...res.data, user: {username: username}});
             return res.data;

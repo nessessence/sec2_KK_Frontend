@@ -27,10 +27,12 @@ let store = createStore(myApp, applyMiddleware(thunk));
 
 class RootContainerComponent extends React.Component {
   async componentDidMount(){
-    await this.props.loadUser();
+    console.log(localStorage.getItem('username'));
+    await this.props.loadUser(localStorage.getItem('username'));
   }
 
   PrivateRoute = ({component: ChildComponent, ...rest}) => {
+    console.log(this.props.auth);
     return <Route {...rest} render={props => {
       if (!this.props.auth.isAuthenticated) {
         console.log('app.js not authenticate');
@@ -59,7 +61,7 @@ class RootContainerComponent extends React.Component {
               <PrivateRoute exact path="/my_courts" component={MyCourt} />
               <PrivateRoute exact path="/become_a_provider" component={BecomeAProvider} />
               <Route exact path="/booking" component={Courts} />
-              <Route exact path="/booking/:courtName" component={Court} />
+              <PrivateRoute exact path="/booking/:courtName" component={Court} />
               <Route exact path='/' render={()=> <Home />} />
               <Route exact path="/about" render={()=> <About />} />
             </Switch>
@@ -78,8 +80,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadUser: () => {
-      return dispatch(auth.loadUser());
+    loadUser: (username) => {
+      return dispatch(auth.loadUser(username));
     }
   }
 }
