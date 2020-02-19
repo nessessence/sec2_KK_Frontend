@@ -57,8 +57,8 @@ class Log extends React.Component {
                     <Table responsive striped hover>
                         <thead>
                             <tr>
-                                <th width="30%">datetime</th>
-                                <th width="70%">description</th>
+                                <th width="30%">Date and Time</th>
+                                <th width="70%">Description</th>
                             </tr>
                         </thead>
                         <tbody>

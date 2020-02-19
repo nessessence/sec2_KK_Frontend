@@ -39,7 +39,7 @@ class MyCourt extends React.Component {
                     <Card className="court-item">
                         <Row>
                             <Col sm="2">
-                                <Card.Img variant="left" src={court.images[0] == null ? ImagePlaceholder : court.images[0]} className="court-image"/>
+                                <Card.Img variant="left" src={court.images[0] == null ? ImagePlaceholder : court.images[0].url} className="court-image"/>
                             </Col>
                             <Col sm="8">
                                 <Card.Body className="text-left">

@@ -117,3 +117,25 @@ export const loadMyCourt = () => {
         }
     }
 }
+
+export const addImageToCourt = (courtName, url) => {
+    return async (dispatch, getState) => {
+        const token = getState().auth.token;
+
+        let config = {
+            headers: {
+                'Content-Type': "application/json",
+                'Authorization': 'Token '+token
+            }
+        }
+
+        try{
+            let res = await axios.post("http://localhost:8000/api/court/"+courtName+"/add_image/", {url}, config);
+            return res.data;
+        }
+        catch(err){
+            console.log("error");
+            throw err;
+        }
+    }
+}

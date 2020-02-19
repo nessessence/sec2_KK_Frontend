@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {court as courtActions} from '../actions';
-import { Form, Col } from 'react-bootstrap';
+import { Form, Col, CarouselItem, Carousel } from 'react-bootstrap';
 import {upload as uploadFileToS3} from '../s3';
 import ImagePlaceholder from '../images/imagePlaceholder.jpg';
 import './court.css';
@@ -21,6 +21,7 @@ class Court extends React.Component {
             file: "",
             imagePreviewUrl: "",
             imageUploadError: "",
+            uploading: false
         }
     }
 
@@ -102,14 +103,23 @@ class Court extends React.Component {
 
         if ( this.isAddImageFormValid() ){
             try{
+                this.setState({
+                    uploading: true
+                });
                 let data = await uploadFileToS3(this.state.file, this.state.court.name + (new Date()).getTime(), "court_images");
                 console.log(data);
+                console.log(data.location);
+                await this.props.addImageToCourt(this.state.courtName, data.location);
                 this.setState({
                     file: "",
-                    imagePreviewUrl: ""
+                    imagePreviewUrl: "",
+                    uploading: false
                 });
             }
             catch(err){
+                this.setState({
+                    uploading: false
+                })
                 alert(err);
                 console.error(err);
             }
@@ -184,7 +194,7 @@ class Court extends React.Component {
         if ( this.state.loadFinish &&  this.isUserOwner() ){
             addImageSection = (
                 <div className="my-4">
-                    <h3>Add Image</h3>
+                    <h3>Add Image To Your Court</h3>
                     <Form onSubmit={this.handleAddImage}>
                         <Form.Group>
                             <Form.Control onChange={this.handleImageChange} name="image" type="file"></Form.Control>
@@ -192,7 +202,7 @@ class Court extends React.Component {
                         </Form.Group>
                         {this.state.imagePreviewUrl === "" ? null : <img src={this.state.imagePreviewUrl}/>}
                         <div className="text-center">
-                            <button type="submit" className="btn btn-primary">Upload</button>
+                            <button type="submit" className="btn btn-primary" disabled={this.state.uploading}>Upload</button>
                         </div>
                     </Form>
                 </div>
@@ -201,7 +211,23 @@ class Court extends React.Component {
 
         let courtCarousel;
         if ( this.state.court.images.length === 0 ){
-            courtCarousel = <img style={{height: "400px"}} src={ImagePlaceholder} alt="court image" />
+            courtCarousel = <img className="court-carousel" src={ImagePlaceholder} alt="court image" />
+        }
+        else {
+            let carouselItems = [];
+            for(let index in this.state.court.images ){
+                let imageUrl = this.state.court.images[index].url;
+                carouselItems.push(
+                    <CarouselItem key={"carousel-"+index}>
+                        <img src={imageUrl} className="court-carousel"/>
+                    </CarouselItem>
+                );
+            }
+            courtCarousel = (
+                <Carousel>
+                    {carouselItems}
+                </Carousel>
+            );
         }
 
         return (
@@ -234,6 +260,9 @@ const mapDispatchToProps = dispatch => {
         },
         reviewCourt: (courtName, score, review) => {
             return dispatch(courtActions.reviewCourt(courtName, score, review));
+        },
+        addImageToCourt: (courtName, url) => {
+            return dispatch(courtActions.addImageToCourt(courtName, url));
         }
       };
 }

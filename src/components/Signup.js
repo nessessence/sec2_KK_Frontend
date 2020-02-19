@@ -26,7 +26,8 @@ class Signup extends React.Component {
                 email: "",
                 phone: "",
                 agreement: ""
-            }
+            },
+            signUpSuccess: false
         }
     }
 
@@ -60,7 +61,8 @@ class Signup extends React.Component {
                 email: "",
                 phone: "",
                 agreement: ""
-            }
+            },
+            signUpSuccess: false
         });
     }
 
@@ -71,9 +73,12 @@ class Signup extends React.Component {
         if ( this.isFormValid() ){
             let res = await this.props.register(this.state.firstname, this.state.lastname, this.state.username, this.state.password, this.state.email, this.state.phone);
             if ( res ){
-                this.closeSignupModal();
-                await this.props.loadUser(this.state.username);
+                // this.closeSignupModal();
+                // await this.props.loadUser(this.state.username);
                 console.log('register successful');
+                this.setState({
+                    signUpSuccess: true
+                })
             }
             else {
                 alert('something wrong');
@@ -122,7 +127,7 @@ class Signup extends React.Component {
             formErrors.confirmPassword =   "this field is required";
         }
         else if ( password.length > 0 && password !== confirmPassword ){
-            formErrors.confirmPassword = "password not match";
+            formErrors.confirmPassword = "password does not match";
         }
         else {
             formErrors.confirmPassword = "";
@@ -179,6 +184,19 @@ class Signup extends React.Component {
     }
 
     render(){
+        if ( this.state.signUpSuccess ){
+            return (
+                <Modal show={this.state.isOpen} onHide={this.closeSignupModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title><span className="gradient-text">SIGNUP SUCCESSFUL</span></Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>you can now log in.</p>
+                    </Modal.Body>
+                </Modal>
+            );
+        }
+
         return (
             <Modal show={this.state.isOpen} onHide={this.closeSignupModal}>
                 <Modal.Header closeButton>

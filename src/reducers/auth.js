@@ -28,7 +28,7 @@ const initialState = {
                 console.log(action);
                 localStorage.setItem("token", action.data.token);
                 localStorage.setItem('username', action.data.result.username);
-                return {...state, ...action.data, isAuthenticated: true, isLoading: false, errors: null};
+                return {...state, ...action.data, isAuthenticated: false, isLoading: false, errors: null};
   
         case 'AUTHENTICATION_ERROR':
         case 'LOGIN_FAILED':

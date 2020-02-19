@@ -58,7 +58,7 @@ class ChangePassword extends React.Component {
             formErrors.confirmNewPassword =  "this field is required";
         }
         else if ( newPassword.length > 0 && newPassword !== confirmNewPassword ){
-            formErrors.confirmNewPassword = "new password is not match";
+            formErrors.confirmNewPassword = "new password does not match";
         }
         else {
             formErrors.confirmNewPassword = "";
@@ -78,27 +78,29 @@ class ChangePassword extends React.Component {
 
     render(){
         return (
-            <div className="container">
-                <h1>Change Password</h1>
-                <br />
-                <br />
-                <Form onSubmit={this.handleSubmit}>
-                    <Form.Group as={Row}>
-                        <Form.Label column sm='3'>new password</Form.Label>
-                        <Col sm='9'>
-                            <Form.Control name="newPassword" type="password" onChange={this.handleChange}></Form.Control>
-                            <p className="error-form-field text-left">{this.state.formErrors.newPassword}</p>
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row}>
-                        <Form.Label column sm='3'>confirm new password</Form.Label>
-                        <Col sm='9'>
-                            <Form.Control name="confirmNewPassword" type="password" onChange={this.handleChange}></Form.Control>
-                            <p className="error-form-field text-left">{this.state.formErrors.confirmNewPassword}</p>
-                        </Col>
-                    </Form.Group>
-                    <Button className="btn btn-primary" type="submit">confirm</Button>
-                </Form>
+            <div className="app-content-inner">
+                <div className="container">
+                    <h1>Change Password</h1>
+                    <br />
+                    <br />
+                    <Form onSubmit={this.handleSubmit}>
+                        <Form.Group as={Row} className="text-right">
+                            <Form.Label column sm='3'>new password</Form.Label>
+                            <Col sm='9'>
+                                <Form.Control name="newPassword" type="password" onChange={this.handleChange}></Form.Control>
+                                <p className="error-form-field text-left">{this.state.formErrors.newPassword}</p>
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row} className="text-right">
+                            <Form.Label column sm='3'>confirm new password</Form.Label>
+                            <Col sm='9'>
+                                <Form.Control name="confirmNewPassword" type="password" onChange={this.handleChange}></Form.Control>
+                                <p className="error-form-field text-left">{this.state.formErrors.confirmNewPassword}</p>
+                            </Col>
+                        </Form.Group>
+                        <Button className="btn btn-primary" type="submit">confirm</Button>
+                    </Form>
+                </div>
             </div>
         );
     }

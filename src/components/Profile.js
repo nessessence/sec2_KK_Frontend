@@ -4,6 +4,8 @@ import {auth} from '../actions';
 import './profile.css';
 import Prayuth from './prayuth.jpg';
 import { Form, Button, Row, Col } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
+import ChangePassword from './ChagePassword';
 
 class Profile extends React.Component {
     constructor(props){
@@ -54,8 +56,12 @@ class Profile extends React.Component {
                             <p>email:&emsp;{this.props.user.email}</p>
                             <p>phone number:&emsp;{this.props.user.phone_number}</p>
                             <br />
+                            <br />
+                            <NavLink className="btn btn-primary" exact to="/profile/change_password">Change Password</NavLink>
                         </Col>
                     </Row>
+                    
+                        
                     
                     
                     {/* <p><span>credit </span><span>{this.props.user.credit}</span></p>
