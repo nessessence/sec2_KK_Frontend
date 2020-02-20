@@ -26,8 +26,21 @@ import BecomeAProvider from './components/BecomeAProvider';
 let store = createStore(myApp, applyMiddleware(thunk));
 
 class RootContainerComponent extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      tempUsername: null
+    }
+  
+  }
+  
   async componentWillMount(){
+    let username = localStorage.getItem('username');
     await this.props.loadUser(localStorage.getItem('username'));
+    this.setState({
+      tempUsername: username
+    })
   }
 
   PrivateRoute = ({component: ChildComponent, ...rest}) => {
@@ -42,7 +55,7 @@ class RootContainerComponent extends React.Component {
   }
 
   render() {
-    if ( this.props.auth.isLoading ){
+    if ( this.props.auth.isLoading && this.state.tempUsername !== null ){
       return <h1>loading...</h1>
     }
     console.log('start rendering');

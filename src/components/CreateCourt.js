@@ -4,6 +4,7 @@ import {court} from '../actions';
 import { Form, Modal } from 'react-bootstrap';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
+import { Redirect } from 'react-router-dom';
 
 class CreateCourt extends React.Component {
     constructor(props){
@@ -24,7 +25,8 @@ class CreateCourt extends React.Component {
                 courtCount: "",
             },
             maps: null,
-            isSubmiting: false
+            isSubmiting: false,
+            created: false
         }
     }
 
@@ -39,12 +41,13 @@ class CreateCourt extends React.Component {
                 });
                 let data = await this.props.createCourt(this.state.name, this.state.price, this.state.desc,
                     this.state.latitude, this.state.longtitude, this.state.courtCount);
-                alert("court created");
+
                 this.setState({
                     name: "",
                     price: "",
                     desc: "",
-                    isSubmiting: false
+                    isSubmiting: false,
+                    created: true
                 });
                 return (
                     <Modal>
@@ -157,6 +160,9 @@ class CreateCourt extends React.Component {
     }
 
     render(){
+        if ( this.state.created ){
+            return <Redirect to={"/my_courts/"+this.state.name} />
+        }
         return (
             <div className="app-content-inner">
                 <div className="container">
