@@ -6,6 +6,8 @@ import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
 import { Redirect } from 'react-router-dom';
 
+import { gmApiKey} from '../private/keys';
+
 class CreateCourt extends React.Component {
     constructor(props){
         super(props);
@@ -194,7 +196,7 @@ class CreateCourt extends React.Component {
                             <p className="text-secondary">longtitude: <span>{this.state.longtitude}</span></p>
                             <div style={{width: "100%", height: "600px"}}>
                                 <GoogleMapReact
-                                    bootstrapURLKeys={{ key: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" }}
+                                    bootstrapURLKeys={{ key: gmApiKey }}
                                     defaultZoom={11}
                                     center={{lat: this.state.latitude, lng: this.state.longtitude}}
                                     yesIWantToUseGoogleMapApiInternals

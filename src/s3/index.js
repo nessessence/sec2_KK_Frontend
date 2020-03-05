@@ -1,16 +1,10 @@
 import S3 from 'react-aws-s3';
+import { awsConfig } from '../private/keys';
  
-const config = {
-    bucketName: 'xxxxxxxxxxxx',
-    // dirName: 'media', /* optional */
-    region: 'xxxxxxxxxxx',
-    accessKeyId: 'xxxxxxxxxxxxxxxxxxxxxx',
-    secretAccessKey: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-    // s3Url: 'https:/your-custom-s3-url.com/', /* optional */
-}
+// awsConfig must be imported
 
 export const upload = async (file, newFileName, dirName) => {
-    const ReactS3Client = new S3({...config, dirName: dirName});
+    const ReactS3Client = new S3({...awsConfig, dirName: dirName});
 
     try{
         let data = await ReactS3Client.uploadFile(file, newFileName);
