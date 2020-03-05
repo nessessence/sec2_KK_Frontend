@@ -194,7 +194,7 @@ class CreateCourt extends React.Component {
                             <p className="text-secondary">longtitude: <span>{this.state.longtitude}</span></p>
                             <div style={{width: "100%", height: "600px"}}>
                                 <GoogleMapReact
-                                    bootstrapURLKeys={{ key: "AIzaSyDwekcqGyFp8teM9rkQj97AhwYHIHTv4KQ" }}
+                                    bootstrapURLKeys={{ key: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" }}
                                     defaultZoom={11}
                                     center={{lat: this.state.latitude, lng: this.state.longtitude}}
                                     yesIWantToUseGoogleMapApiInternals

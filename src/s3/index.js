@@ -1,11 +1,11 @@
 import S3 from 'react-aws-s3';
  
 const config = {
-    bucketName: 'courtcatch101',
+    bucketName: 'xxxxxxxxxxxx',
     // dirName: 'media', /* optional */
-    region: 'ap-southeast-1',
-    accessKeyId: 'AKIAICZ43OQ6YU67753Q',
-    secretAccessKey: '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',
+    region: 'xxxxxxxxxxx',
+    accessKeyId: 'xxxxxxxxxxxxxxxxxxxxxx',
+    secretAccessKey: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     // s3Url: 'https:/your-custom-s3-url.com/', /* optional */
 }
 
